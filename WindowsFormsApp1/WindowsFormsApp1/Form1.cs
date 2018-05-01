@@ -16,6 +16,7 @@ namespace WindowsFormsApp1
         const string convertedDir = "\\converted";
         
         List<string> imgFiles = new List<string>();
+        List<string> imgFilesConverted = new List<string>();
 
         string filepath = "";
         string savedPath = "";
@@ -36,7 +37,7 @@ namespace WindowsFormsApp1
 
             foreach ( string tempF in allFiles)
             {
-                if ( tempF.Contains(".jpg"))
+                if ( tempF.Contains(".jpg") || tempF.Contains(".JPG"))
                 {
                     imgFiles.Add(tempF);
                 }
@@ -104,6 +105,9 @@ namespace WindowsFormsApp1
                 string fileR = savedPath + m_filename + "_R.jpg";
                 newImageR.Save(fileR, System.Drawing.Imaging.ImageFormat.Jpeg);
 
+                imgFilesConverted.Add(fileL);
+                imgFilesConverted.Add(fileR);
+
                 gL.Dispose();
                 gR.Dispose();
                 i.Dispose();
@@ -111,6 +115,8 @@ namespace WindowsFormsApp1
                 newImageR.Dispose();
 
             }
+
+            this.toPDF();
 
             MessageBox.Show("Conversion Finished");
 
@@ -135,6 +141,12 @@ namespace WindowsFormsApp1
             isDropped = false;
             this.Display.Text = "";
             imgFiles.Clear();
+            imgFilesConverted.Clear();
+        }
+
+        private void toPDF()
+        {
+           //not to be done
         }
 
         private void setLog()
@@ -146,7 +158,7 @@ namespace WindowsFormsApp1
             string curTime = localdate.ToString().Replace(":", "-");
             string fileName = (filePath + curTime + ".txt");
 
-            MessageBox.Show(fileName);
+            //MessageBox.Show(fileName);
 
             string data = curTime + "\r\n";
 

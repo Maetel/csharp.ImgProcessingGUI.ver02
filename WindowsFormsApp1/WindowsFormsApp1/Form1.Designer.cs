@@ -50,7 +50,7 @@
             // 
             this.Convert.BackColor = System.Drawing.SystemColors.Info;
             this.Convert.Font = new System.Drawing.Font("HelveticaNeueLT Pro 43 LtEx", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Convert.Location = new System.Drawing.Point(232, 367);
+            this.Convert.Location = new System.Drawing.Point(223, 367);
             this.Convert.Name = "Convert";
             this.Convert.Size = new System.Drawing.Size(222, 41);
             this.Convert.TabIndex = 1;
