@@ -12,6 +12,10 @@ namespace WindowsFormsApp1
 {
     static class Program
     {
+        public const string mainTitle = "Image Converter";
+        public const string curVersion = "ver0.21";    //180502-1
+        //const string curVersion = "ver0.2";    //180501~2
+
         /// <summary>
         /// 해당 응용 프로그램의 주 진입점입니다.
         /// </summary>

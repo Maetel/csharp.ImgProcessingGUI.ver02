@@ -13,6 +13,7 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        
         const string convertedDir = "\\converted";
         
         List<string> imgFiles = new List<string>();
@@ -86,8 +87,96 @@ namespace WindowsFormsApp1
                     m_filename += fileImg[ii];
                 }
 
-
                 Bitmap i = Image.FromFile(fileImg) as Bitmap;
+                var dpiX = i.HorizontalResolution;
+                var dpiY = i.VerticalResolution;
+                int iW = i.Width;
+                int iH = i.Height;
+
+                
+
+                var temp = new Bitmap(iW / 2, iH, i.PixelFormat);
+                temp.SetResolution(dpiX, dpiY);
+
+                //MBDN code, 'GetEncoder' is a custom declared method
+                //Trying to solve the problem; images drawn by 'Graphics' not being able to be opened on the photoshop app
+                System.Drawing.Imaging.ImageCodecInfo jpgEncoder = this.GetEncoder(System.Drawing.Imaging.ImageFormat.Jpeg);
+                System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
+                System.Drawing.Imaging.EncoderParameters myEncoderParameters = new System.Drawing.Imaging.EncoderParameters(1);
+
+                System.Drawing.Imaging.EncoderParameter myEncoderParameter = new System.Drawing.Imaging.EncoderParameter(myEncoder, 300L);
+                myEncoderParameters.Param[0] = myEncoderParameter;
+
+                /*
+                using (var gr = Graphics.FromImage(temp))
+                {
+                    gr.DrawImageUnscaled(i, 0, 0, iW, iH);
+                }
+                temp.Save(savedPath + m_filename + "_L.jpg", jpgEncoder, myEncoderParameters);
+                */
+                using (var gr = Graphics.FromImage(temp))
+                {
+                    gr.Clear(Color.Transparent);
+                    gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    gr.DrawImage(i, new Rectangle(0, 0, iW, iH));
+                }
+                temp.Save(savedPath + m_filename + "_L.jpg", jpgEncoder, myEncoderParameters);
+                using (var gr = Graphics.FromImage(temp))
+                {
+                    gr.Clear(Color.Transparent);
+                    gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    gr.DrawImage(i, new Rectangle(0, 0, iW, iH), new Rectangle(iW / 2, 0, iW, iH), GraphicsUnit.Pixel);
+                }
+                temp.Save(savedPath + m_filename + "_R.jpg", jpgEncoder, myEncoderParameters);
+
+
+
+                /*0502-01. succeeded in diving into two. failed to keep the original resolution
+                Bitmap i = Image.FromFile(fileImg) as Bitmap;
+                var dpiX = i.HorizontalResolution;
+                var dpiY = i.VerticalResolution;
+                MessageBox.Show(dpiX + "   " + dpiY);
+                int iW = i.Width;
+                int iH = i.Height;
+                Rectangle cropRectL = new Rectangle(0, 0, iW / 2, iH);
+                Rectangle cropRectR = new Rectangle(iW / 2, 0, iW / 2, iH);
+                Bitmap target = new Bitmap(i);
+
+                target.Clone(cropRectL, target.PixelFormat).Save(savedPath + m_filename + "_L.jpg");
+                target.Clone(cropRectR, target.PixelFormat).Save(savedPath + m_filename + "_R.jpg");
+                */
+
+                /*0502-02. succeeded in diving into two, keeping the original resolution, but failed in having the files opened on photoshop
+                Bitmap i = Image.FromFile(fileImg) as Bitmap;
+                var dpiX = i.HorizontalResolution;
+                var dpiY = i.VerticalResolution;
+
+                int iW = i.Width;
+                int iH = i.Height;
+
+                var temp = new Bitmap(iW/2, iH, i.PixelFormat);
+                temp.SetResolution(dpiX, dpiY);
+
+                using ( var gr = Graphics.FromImage(temp))
+                {
+                    gr.Clear(Color.Transparent);
+                    gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    gr.DrawImage(i, new Rectangle(0, 0, iW, iH));
+                }
+                temp.Save(savedPath + m_filename + "_L.jpg");
+                using (var gr = Graphics.FromImage(temp))
+                {
+                    gr.Clear(Color.Transparent);
+                    gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    gr.DrawImage(i, new Rectangle(0, 0, iW, iH), new Rectangle(iW/2, 0, iW, iH), GraphicsUnit.Pixel);
+                }
+                temp.Save(savedPath + m_filename + "_R.jpg");
+                */
+
+
+                /*  0501version
+                Bitmap i = Image.FromFile(fileImg) as Bitmap;
+                i.Save(savedPath + m_filename + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
                 Rectangle cropRectL = new Rectangle(0, 0, i.Width/2, i.Height);
                 Rectangle cropRectR = new Rectangle(i.Width / 2, 0, i.Width / 2, i.Height);
 
@@ -113,6 +202,7 @@ namespace WindowsFormsApp1
                 i.Dispose();
                 newImageL.Dispose();
                 newImageR.Dispose();
+                */
 
             }
 
@@ -125,6 +215,8 @@ namespace WindowsFormsApp1
 
             this.Status.Text = "Drag and drop images";
         }
+
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -168,6 +260,19 @@ namespace WindowsFormsApp1
             }
 
             System.IO.File.WriteAllText(fileName, data);
+        }
+
+        private System.Drawing.Imaging.ImageCodecInfo GetEncoder(System.Drawing.Imaging.ImageFormat format)
+        {
+            System.Drawing.Imaging.ImageCodecInfo[] codecs = System.Drawing.Imaging.ImageCodecInfo.GetImageDecoders();
+            foreach (System.Drawing.Imaging.ImageCodecInfo codec in codecs)
+            {
+                if ( codec.FormatID == format.Guid)
+                {
+                    return codec;
+                }
+            }
+            return null;
         }
     }
 }

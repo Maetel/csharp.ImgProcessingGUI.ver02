@@ -38,21 +38,23 @@
             // Display
             // 
             this.Display.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.Display.Location = new System.Drawing.Point(12, 52);
+            this.Display.Location = new System.Drawing.Point(14, 65);
+            this.Display.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Display.Multiline = true;
             this.Display.Name = "Display";
             this.Display.ReadOnly = true;
             this.Display.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Display.Size = new System.Drawing.Size(655, 309);
+            this.Display.Size = new System.Drawing.Size(748, 385);
             this.Display.TabIndex = 0;
             // 
             // Convert
             // 
             this.Convert.BackColor = System.Drawing.SystemColors.Info;
-            this.Convert.Font = new System.Drawing.Font("HelveticaNeueLT Pro 43 LtEx", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Convert.Location = new System.Drawing.Point(223, 367);
+            this.Convert.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Convert.Location = new System.Drawing.Point(255, 459);
+            this.Convert.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Convert.Name = "Convert";
-            this.Convert.Size = new System.Drawing.Size(222, 41);
+            this.Convert.Size = new System.Drawing.Size(254, 51);
             this.Convert.TabIndex = 1;
             this.Convert.Text = "Convert";
             this.Convert.UseVisualStyleBackColor = false;
@@ -61,10 +63,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("HelveticaNeueLT Pro 53 Ex", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(281, 9);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(321, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 27);
+            this.label1.Size = new System.Drawing.Size(108, 36);
             this.label1.TabIndex = 2;
             this.label1.Text = "File list";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -72,9 +74,9 @@
             // Status
             // 
             this.Status.AutoSize = true;
-            this.Status.Location = new System.Drawing.Point(536, 384);
+            this.Status.Location = new System.Drawing.Point(613, 480);
             this.Status.Name = "Status";
-            this.Status.Size = new System.Drawing.Size(131, 12);
+            this.Status.Size = new System.Drawing.Size(151, 15);
             this.Status.TabIndex = 3;
             this.Status.Text = "Drag and drop images";
             this.Status.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -82,10 +84,11 @@
             // Initialize
             // 
             this.Initialize.BackColor = System.Drawing.SystemColors.Window;
-            this.Initialize.Font = new System.Drawing.Font("HelveticaNeueLT Pro 43 LtEx", 9F);
-            this.Initialize.Location = new System.Drawing.Point(460, 367);
+            this.Initialize.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.Initialize.Location = new System.Drawing.Point(526, 459);
+            this.Initialize.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Initialize.Name = "Initialize";
-            this.Initialize.Size = new System.Drawing.Size(70, 41);
+            this.Initialize.Size = new System.Drawing.Size(80, 51);
             this.Initialize.TabIndex = 4;
             this.Initialize.Text = "Initialize";
             this.Initialize.UseVisualStyleBackColor = false;
@@ -94,18 +97,19 @@
             // Form1
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(679, 416);
+            this.ClientSize = new System.Drawing.Size(776, 520);
             this.Controls.Add(this.Initialize);
             this.Controls.Add(this.Status);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Convert);
             this.Controls.Add(this.Display);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
-            this.Text = "ImageConverter ver0.2";
+            this.Text = Program.mainTitle + " " + Program.curVersion;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
