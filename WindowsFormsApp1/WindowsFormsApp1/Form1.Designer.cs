@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp1
 {
-    partial class Form1
+    partial class MainWindow
     {
         /// <summary>
         /// 필수 디자이너 변수입니다.
@@ -33,6 +33,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Status = new System.Windows.Forms.Label();
             this.Initialize = new System.Windows.Forms.Button();
+            this.chkMergePDF = new System.Windows.Forms.CheckBox();
+            this.PDFTitle = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnClearTitle = new System.Windows.Forms.Button();
+            this.chkCreateImages = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // Display
@@ -74,7 +79,7 @@
             // Status
             // 
             this.Status.AutoSize = true;
-            this.Status.Location = new System.Drawing.Point(613, 480);
+            this.Status.Location = new System.Drawing.Point(611, 27);
             this.Status.Name = "Status";
             this.Status.Size = new System.Drawing.Size(151, 15);
             this.Status.TabIndex = 3;
@@ -94,7 +99,61 @@
             this.Initialize.UseVisualStyleBackColor = false;
             this.Initialize.Click += new System.EventHandler(this.Initialize_Click);
             // 
-            // Form1
+            // chkMergePDF
+            // 
+            this.chkMergePDF.AutoSize = true;
+            this.chkMergePDF.Checked = true;
+            this.chkMergePDF.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMergePDF.Location = new System.Drawing.Point(660, 463);
+            this.chkMergePDF.Name = "chkMergePDF";
+            this.chkMergePDF.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chkMergePDF.Size = new System.Drawing.Size(102, 19);
+            this.chkMergePDF.TabIndex = 5;
+            this.chkMergePDF.Text = "Merge PDF";
+            this.chkMergePDF.UseVisualStyleBackColor = true;
+            this.chkMergePDF.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // PDFTitle
+            // 
+            this.PDFTitle.Location = new System.Drawing.Point(94, 460);
+            this.PDFTitle.Name = "PDFTitle";
+            this.PDFTitle.Size = new System.Drawing.Size(149, 25);
+            this.PDFTitle.TabIndex = 6;
+            this.PDFTitle.TextChanged += new System.EventHandler(this.PDFTitle_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 464);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(76, 15);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "PDF Title :";
+            // 
+            // btnClearTitle
+            // 
+            this.btnClearTitle.Location = new System.Drawing.Point(119, 487);
+            this.btnClearTitle.Name = "btnClearTitle";
+            this.btnClearTitle.Size = new System.Drawing.Size(124, 23);
+            this.btnClearTitle.TabIndex = 8;
+            this.btnClearTitle.Text = "Clear Title";
+            this.btnClearTitle.UseVisualStyleBackColor = true;
+            this.btnClearTitle.Click += new System.EventHandler(this.btnClearTitle_Click);
+            // 
+            // chkCreateImages
+            // 
+            this.chkCreateImages.AutoSize = true;
+            this.chkCreateImages.Checked = true;
+            this.chkCreateImages.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkCreateImages.Location = new System.Drawing.Point(640, 487);
+            this.chkCreateImages.Name = "chkCreateImages";
+            this.chkCreateImages.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chkCreateImages.Size = new System.Drawing.Size(122, 19);
+            this.chkCreateImages.TabIndex = 9;
+            this.chkCreateImages.Text = "Create Images";
+            this.chkCreateImages.UseVisualStyleBackColor = true;
+            // 
+            // MainWindow
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -102,15 +161,19 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(776, 520);
+            this.Controls.Add(this.chkCreateImages);
+            this.Controls.Add(this.btnClearTitle);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.PDFTitle);
+            this.Controls.Add(this.chkMergePDF);
             this.Controls.Add(this.Initialize);
             this.Controls.Add(this.Status);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Convert);
             this.Controls.Add(this.Display);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "Form1";
-            this.Text = Program.mainTitle + " " + Program.curVersion;
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Name = "MainWindow";
+            this.Text = "Image Converter ver0.22";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.ResumeLayout(false);
@@ -125,6 +188,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label Status;
         private System.Windows.Forms.Button Initialize;
+        private System.Windows.Forms.CheckBox chkMergePDF;
+        private System.Windows.Forms.TextBox PDFTitle;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnClearTitle;
+        private System.Windows.Forms.CheckBox chkCreateImages;
     }
 }
 

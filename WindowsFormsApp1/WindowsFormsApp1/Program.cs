@@ -13,7 +13,8 @@ namespace WindowsFormsApp1
     static class Program
     {
         public const string mainTitle = "Image Converter";
-        public const string curVersion = "ver0.21";    //180502-1
+        public const string curVersion = "ver0.22";         //180503-1 pdfConversion, once again being able to opened in photoshop
+        //public const string curVersion = "ver0.21";       //180502-1 not losing the images' original resolution, being able to opened in photoshop
         //const string curVersion = "ver0.2";    //180501~2
 
         /// <summary>
@@ -22,11 +23,9 @@ namespace WindowsFormsApp1
         [STAThread]
         static void Main()
         {
-            
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new MainWindow());
         }
 
         
