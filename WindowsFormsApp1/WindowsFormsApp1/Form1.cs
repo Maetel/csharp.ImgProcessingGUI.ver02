@@ -104,7 +104,8 @@ namespace WindowsFormsApp1
                 System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
                 System.Drawing.Imaging.EncoderParameters myEncoderParameters = new System.Drawing.Imaging.EncoderParameters(1);
 
-                System.Drawing.Imaging.EncoderParameter myEncoderParameter = new System.Drawing.Imaging.EncoderParameter(myEncoder, 300L);
+                //180503-01 adjusted by adding (long)dpiX for the parameter, while dpiX is the original horizontal resolution of the referred image file.
+                System.Drawing.Imaging.EncoderParameter myEncoderParameter = new System.Drawing.Imaging.EncoderParameter(myEncoder, (long)dpiX);
                 myEncoderParameters.Param[0] = myEncoderParameter;
 
                 /*
