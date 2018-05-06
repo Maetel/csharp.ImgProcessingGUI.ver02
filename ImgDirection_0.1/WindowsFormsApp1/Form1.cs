@@ -98,16 +98,16 @@ namespace WindowsFormsApp1
                 bool isHorizontal = true;
                 bool shouldRotate = false;
 
-                #region ver0.11
+                #region ver 0.13 for test to see if the printer does not reconize EXIF Id
 
-                if ( this.chkVertical.Checked)
+                if (this.chkVertical.Checked)
                 {
                     isHorizontal = false;
                 }
 
-                if ( isHorizontal )
+                if (isHorizontal)
                 {
-                    if( iH > iW)
+                    if (iH > iW)
                     {
                         shouldRotate = true;
                     }
@@ -117,18 +117,121 @@ namespace WindowsFormsApp1
                 if (!shouldRotate)
                 {
                     File.Copy(fileImg, savedPath + m_filename + "_rotated.jpg");
-                    
+
                 }
                 else
                 {
                     var prop = i.GetPropertyItem(exifOrientationID);
                     prop.Id = exifOrientationID;
 
+                    MessageBox.Show("Original :" + prop.Value[0].ToString());
+
+                    prop.Value[0] = 0x00;
+                    i.SetPropertyItem(prop);
+                    i.Save(savedPath + "0.jpg");
+
+                    prop.Value[0] = 0x01;
+                    i.SetPropertyItem(prop);
+                    i.Save(savedPath + "1.jpg");
+
+                    prop.Value[0] = 0x02;
+                    i.SetPropertyItem(prop);
+                    i.Save(savedPath + "2.jpg");
+
+                    prop.Value[0] = 0x03;
+                    i.SetPropertyItem(prop);
+                    i.Save(savedPath + "3.jpg");
+
+                    prop.Value[0] = 0x04;
+                    i.SetPropertyItem(prop);
+                    i.Save(savedPath + "4.jpg");
+
+                    prop.Value[0] = 0x05;
+                    i.SetPropertyItem(prop);
+                    i.Save(savedPath + "5.jpg");
+
+                    prop.Value[0] = 0x06;
+                    i.SetPropertyItem(prop);
+                    i.Save(savedPath + "6.jpg");
+
+                    prop.Value[0] = 0x07;
+                    i.SetPropertyItem(prop);
+                    i.Save(savedPath + "7.jpg");
+
+                    prop.Value[0] = 0x08;
+                    i.SetPropertyItem(prop);
+                    i.Save(savedPath + "8.jpg");
+
+                    prop.Value[0] = 0x09;
+                    i.SetPropertyItem(prop);
+                    i.Save(savedPath + "9.jpg");
+
+                    prop.Value[0] = 0x0a;
+                    i.SetPropertyItem(prop);
+                    i.Save(savedPath + "a.jpg");
+
+                    prop.Value[0] = 0x0b;
+                    i.SetPropertyItem(prop);
+                    i.Save(savedPath + "b.jpg");
+
+                    prop.Value[0] = 0x0c;
+                    i.SetPropertyItem(prop);
+                    i.Save(savedPath + "c.jpg");
+
+                    prop.Value[0] = 0x0d;
+                    i.SetPropertyItem(prop);
+                    i.Save(savedPath + "d.jpg");
+
+                    prop.Value[0] = 0x0e;
+                    i.SetPropertyItem(prop);
+                    i.Save(savedPath + "e.jpg");
+
+                    prop.Value[0] = 0x0f;
+                    i.SetPropertyItem(prop);
+                    i.Save(savedPath + "f.jpg");
+
+                    /*
                     prop.Value[0] = 0x06;
                     i.SetPropertyItem(prop);
                     i.Save(savedPath + m_filename + "_rotated.jpg");
-
+                    */
                 }
+
+                #endregion
+
+
+
+                #region ver0.11
+
+                //if ( this.chkVertical.Checked)
+                //{
+                //    isHorizontal = false;
+                //}
+
+                //if ( isHorizontal )
+                //{
+                //    if( iH > iW)
+                //    {
+                //        shouldRotate = true;
+                //    }
+                //}
+
+
+                //if (!shouldRotate)
+                //{
+                //    File.Copy(fileImg, savedPath + m_filename + "_rotated.jpg");
+
+                //}
+                //else
+                //{
+                //    var prop = i.GetPropertyItem(exifOrientationID);
+                //    prop.Id = exifOrientationID;
+
+                //    prop.Value[0] = 0x06;
+                //    i.SetPropertyItem(prop);
+                //    i.Save(savedPath + m_filename + "_rotated.jpg");
+
+                //}
 
                 #endregion
 
