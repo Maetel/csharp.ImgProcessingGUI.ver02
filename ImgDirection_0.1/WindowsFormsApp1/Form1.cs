@@ -89,6 +89,8 @@ namespace WindowsFormsApp1
 
                 //by giving 'true' as the second parameter, i gain the 'use embedded color management' option, 180503
                 Bitmap i = System.Drawing.Image.FromFile(fileImg, true) as Bitmap;
+                Bitmap i_ = System.Drawing.Image.FromFile(fileImg, true) as Bitmap;
+
                 //Bitmap i = System.Drawing.Image.FromFile(fileImg) as Bitmap;
                 var dpiX = i.HorizontalResolution;
                 var dpiY = i.VerticalResolution;
@@ -98,7 +100,7 @@ namespace WindowsFormsApp1
                 bool isHorizontal = true;
                 bool shouldRotate = false;
 
-                #region ver 0.13 for test to see if the printer does not reconize EXIF Id
+                #region ver0.14. using the old method - using embedded flipping method
 
                 if (this.chkVertical.Checked)
                 {
@@ -121,85 +123,126 @@ namespace WindowsFormsApp1
                 }
                 else
                 {
-                    var prop = i.GetPropertyItem(exifOrientationID);
-                    prop.Id = exifOrientationID;
-
-                    MessageBox.Show("Original :" + prop.Value[0].ToString());
-
-                    prop.Value[0] = 0x00;
-                    i.SetPropertyItem(prop);
-                    i.Save(savedPath + "0.jpg");
-
-                    prop.Value[0] = 0x01;
-                    i.SetPropertyItem(prop);
-                    i.Save(savedPath + "1.jpg");
-
-                    prop.Value[0] = 0x02;
-                    i.SetPropertyItem(prop);
-                    i.Save(savedPath + "2.jpg");
-
-                    prop.Value[0] = 0x03;
-                    i.SetPropertyItem(prop);
-                    i.Save(savedPath + "3.jpg");
-
-                    prop.Value[0] = 0x04;
-                    i.SetPropertyItem(prop);
-                    i.Save(savedPath + "4.jpg");
-
-                    prop.Value[0] = 0x05;
-                    i.SetPropertyItem(prop);
-                    i.Save(savedPath + "5.jpg");
-
-                    prop.Value[0] = 0x06;
-                    i.SetPropertyItem(prop);
-                    i.Save(savedPath + "6.jpg");
-
-                    prop.Value[0] = 0x07;
-                    i.SetPropertyItem(prop);
-                    i.Save(savedPath + "7.jpg");
-
-                    prop.Value[0] = 0x08;
-                    i.SetPropertyItem(prop);
-                    i.Save(savedPath + "8.jpg");
-
-                    prop.Value[0] = 0x09;
-                    i.SetPropertyItem(prop);
-                    i.Save(savedPath + "9.jpg");
-
-                    prop.Value[0] = 0x0a;
-                    i.SetPropertyItem(prop);
-                    i.Save(savedPath + "a.jpg");
-
-                    prop.Value[0] = 0x0b;
-                    i.SetPropertyItem(prop);
-                    i.Save(savedPath + "b.jpg");
-
-                    prop.Value[0] = 0x0c;
-                    i.SetPropertyItem(prop);
-                    i.Save(savedPath + "c.jpg");
-
-                    prop.Value[0] = 0x0d;
-                    i.SetPropertyItem(prop);
-                    i.Save(savedPath + "d.jpg");
-
-                    prop.Value[0] = 0x0e;
-                    i.SetPropertyItem(prop);
-                    i.Save(savedPath + "e.jpg");
-
-                    prop.Value[0] = 0x0f;
-                    i.SetPropertyItem(prop);
-                    i.Save(savedPath + "f.jpg");
+                    i.RotateFlip(RotateFlipType.Rotate90FlipNone);
 
                     /*
-                    prop.Value[0] = 0x06;
-                    i.SetPropertyItem(prop);
-                    i.Save(savedPath + m_filename + "_rotated.jpg");
+                    foreach (var ii in i_.PropertyIdList)
+                    {
+                        i.SetPropertyItem(i_.GetPropertyItem(ii));
+
+                    }
                     */
+
+                    //i.Save(savedPath + m_filename + "_rotated.jpg");
+
+                    //180506 added, this decreases the size of the img file
+                    i.Save(savedPath + m_filename + "_rotated.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
                 }
+
+                
 
                 #endregion
 
+                #region ver 0.13 for test to see if the printer does not reconize EXIF Id
 
+                //if (this.chkVertical.Checked)
+                //{
+                //    isHorizontal = false;
+                //}
+
+                //if (isHorizontal)
+                //{
+                //    if (iH > iW)
+                //    {
+                //        shouldRotate = true;
+                //    }
+                //}
+
+
+                //if (!shouldRotate)
+                //{
+                //    File.Copy(fileImg, savedPath + m_filename + "_rotated.jpg");
+
+                //}
+                //else
+                //{
+                //    var prop = i.GetPropertyItem(exifOrientationID);
+                //    prop.Id = exifOrientationID;
+
+                //    MessageBox.Show("Original :" + prop.Value[0].ToString());
+
+                //    prop.Value[0] = 0x00;
+                //    i.SetPropertyItem(prop);
+                //    i.Save(savedPath + "0.jpg");
+
+                //    prop.Value[0] = 0x01;
+                //    i.SetPropertyItem(prop);
+                //    i.Save(savedPath + "1.jpg");
+
+                //    prop.Value[0] = 0x02;
+                //    i.SetPropertyItem(prop);
+                //    i.Save(savedPath + "2.jpg");
+
+                //    prop.Value[0] = 0x03;
+                //    i.SetPropertyItem(prop);
+                //    i.Save(savedPath + "3.jpg");
+
+                //    prop.Value[0] = 0x04;
+                //    i.SetPropertyItem(prop);
+                //    i.Save(savedPath + "4.jpg");
+
+                //    prop.Value[0] = 0x05;
+                //    i.SetPropertyItem(prop);
+                //    i.Save(savedPath + "5.jpg");
+
+                //    prop.Value[0] = 0x06;
+                //    i.SetPropertyItem(prop);
+                //    i.Save(savedPath + "6.jpg");
+
+                //    prop.Value[0] = 0x07;
+                //    i.SetPropertyItem(prop);
+                //    i.Save(savedPath + "7.jpg");
+
+                //    prop.Value[0] = 0x08;
+                //    i.SetPropertyItem(prop);
+                //    i.Save(savedPath + "8.jpg");
+
+                //    prop.Value[0] = 0x09;
+                //    i.SetPropertyItem(prop);
+                //    i.Save(savedPath + "9.jpg");
+
+                //    prop.Value[0] = 0x0a;
+                //    i.SetPropertyItem(prop);
+                //    i.Save(savedPath + "a.jpg");
+
+                //    prop.Value[0] = 0x0b;
+                //    i.SetPropertyItem(prop);
+                //    i.Save(savedPath + "b.jpg");
+
+                //    prop.Value[0] = 0x0c;
+                //    i.SetPropertyItem(prop);
+                //    i.Save(savedPath + "c.jpg");
+
+                //    prop.Value[0] = 0x0d;
+                //    i.SetPropertyItem(prop);
+                //    i.Save(savedPath + "d.jpg");
+
+                //    prop.Value[0] = 0x0e;
+                //    i.SetPropertyItem(prop);
+                //    i.Save(savedPath + "e.jpg");
+
+                //    prop.Value[0] = 0x0f;
+                //    i.SetPropertyItem(prop);
+                //    i.Save(savedPath + "f.jpg");
+
+                //    /*
+                //    prop.Value[0] = 0x06;
+                //    i.SetPropertyItem(prop);
+                //    i.Save(savedPath + m_filename + "_rotated.jpg");
+                //    */
+                //}
+
+                #endregion
 
                 #region ver0.11
 
@@ -237,52 +280,65 @@ namespace WindowsFormsApp1
 
                 #region ver0.1
 
-                //var temp = new Bitmap(iW, iH, System.Drawing.Imaging.PixelFormat.Format48bppRgb);
+            //    if (this.chkVertical.Checked)
+            //{
+            //    isHorizontal = false;
+            //}
 
-                //temp.SetResolution(dpiX, dpiY);
+            //if (isHorizontal)
+            //{
+            //    if (iH > iW)
+            //    {
+            //        shouldRotate = true;
+            //    }
+            //}
 
-                ////MBDN code, 'GetEncoder' is a custom declared method
-                //System.Drawing.Imaging.ImageCodecInfo jpgEncoder = this.GetEncoder(System.Drawing.Imaging.ImageFormat.Jpeg);
-                //System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
-                //System.Drawing.Imaging.EncoderParameters myEncoderParameters = new System.Drawing.Imaging.EncoderParameters(1);
-                //System.Drawing.Imaging.EncoderParameter myEncoderParameter = new System.Drawing.Imaging.EncoderParameter(myEncoder, (long)dpiX);
-                //myEncoderParameters.Param[0] = myEncoderParameter;
+            //var temp = new Bitmap(iW, iH, System.Drawing.Imaging.PixelFormat.Format48bppRgb);
 
-                //string rPath = savedPath + m_filename + "_rotated.jpg";
-                //convertedPaths.Add(rPath);
+            //temp.SetResolution(dpiX, dpiY);
+
+            ////MBDN code, 'GetEncoder' is a custom declared method
+            //System.Drawing.Imaging.ImageCodecInfo jpgEncoder = this.GetEncoder(System.Drawing.Imaging.ImageFormat.Jpeg);
+            //System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
+            //System.Drawing.Imaging.EncoderParameters myEncoderParameters = new System.Drawing.Imaging.EncoderParameters(1);
+            //System.Drawing.Imaging.EncoderParameter myEncoderParameter = new System.Drawing.Imaging.EncoderParameter(myEncoder, (long)dpiX);
+            //myEncoderParameters.Param[0] = myEncoderParameter;
+
+            //string rPath = savedPath + m_filename + "_rotated.jpg";
+            //convertedPaths.Add(rPath);
 
 
-                //using (var gr = Graphics.FromImage(temp))
-                //{
-                //    gr.Clear(Color.Transparent);
-                //    /*
-                //    if (shouldRotate)
-                //    {
-                //        gr.TranslateTransform((float)temp.Width / 2, (float)temp.Height / 2);
-                //        gr.RotateTransform(90);
-                //        gr.TranslateTransform(-(float)temp.Width / 2, -(float)temp.Height / 2);
-                //    }
-                //    */
-                //    gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+            //using (var gr = Graphics.FromImage(temp))
+            //{
+            //    gr.Clear(Color.Transparent);
+            //    /*
+            //    if (shouldRotate)
+            //    {
+            //        gr.TranslateTransform((float)temp.Width / 2, (float)temp.Height / 2);
+            //        gr.RotateTransform(90);
+            //        gr.TranslateTransform(-(float)temp.Width / 2, -(float)temp.Height / 2);
+            //    }
+            //    */
+            //    gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
 
-                //    gr.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+            //    gr.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
 
-                //    gr.DrawImage(i, new Point(0, 0));
+            //    gr.DrawImage(i, new Point(0, 0));
 
-                //    gr.Dispose();
-                //}
+            //    gr.Dispose();
+            //}
 
-                //if (shouldRotate) { temp.RotateFlip(RotateFlipType.Rotate90FlipNone); }
+            //if (shouldRotate) { temp.RotateFlip(RotateFlipType.Rotate90FlipNone); }
 
-                //temp.Save(rPath, jpgEncoder, myEncoderParameters);
-                //temp.Dispose();
-                //System.GC.Collect();
-                //System.GC.WaitForPendingFinalizers();
+            //temp.Save(rPath, jpgEncoder, myEncoderParameters);
+            //temp.Dispose();
+            //System.GC.Collect();
+            //System.GC.WaitForPendingFinalizers();
 
-                #endregion
-
+            #endregion
 
                 i.Dispose();
+                i_.Dispose();
             }
 
             string finishedMsg = g_lang == 0? "Image cut successfully" : "이미지가 회전되었습니다.";
